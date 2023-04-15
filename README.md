@@ -18,6 +18,7 @@ Choose the file "Clip.firebotsetup" from the location you just downloaded it to,
 ## Streamer Info
 + Toggle enabled/disabled is currently a manual process
 + Recommend you add an effect queue to allow them to play one after another
++ Customize the colors and position to your liking
 
 # Credits
 Inspired by MattyCanny
