@@ -1,6 +1,6 @@
 # clip-firebot-setup
 
-Install
+# Install
 To install, download the file Clip.firebotsetup
 
 Import setup for Firebot by going to Settings > Setups > Import Setup.
