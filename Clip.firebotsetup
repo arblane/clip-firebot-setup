@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 1,
+  "version": 1.1,
   "author": "arblane",
   "components": {
     "commands": [
@@ -51,7 +51,7 @@
         "createdAt": "2023-04-15T14:53:30-04:00",
         "count": 17,
         "lastEditBy": "System",
-        "lastEditAt": "2023-04-22T14:47:56-04:00",
+        "lastEditAt": "2023-04-23T09:37:53-04:00",
         "ignoreBot": true,
         "hidden": true,
         "type": "custom"
@@ -124,6 +124,90 @@
           "c7299530-6b33-4cfe-9571-984695db5292"
         ],
         "id": "0eff6080-dbbe-11ed-99c3-c983bb9904e0"
+      },
+      {
+        "name": "[TP] ToggleClip",
+        "effects": {
+          "list": [
+            {
+              "id": "538b1c70-e137-11ed-9b56-ddd81a7af71a",
+              "type": "firebot:conditional-effects",
+              "active": true,
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is",
+                        "value": null,
+                        "leftSideValue": "$customVariable[clips status]",
+                        "rightSideValue": "false"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "6db25cd0-e137-11ed-9b56-ddd81a7af71a",
+                        "type": "firebot:announcement",
+                        "active": true,
+                        "color": "Green",
+                        "chatter": "Streamer",
+                        "message": "Clips have been enabled for chat. Type !clip followed by a streamer you would like to play a clip from in chat. Clips will be queued, so you don't have to wait to add them."
+                      },
+                      {
+                        "id": "a5573480-e137-11ed-9b56-ddd81a7af71a",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 0,
+                        "name": "clips status",
+                        "variableData": "true"
+                      }
+                    ],
+                    "id": "538f6230-e137-11ed-9b56-ddd81a7af71a"
+                  }
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [
+                  {
+                    "id": "6db25cd0-e137-11ed-9b56-ddd81a7af71a",
+                    "type": "firebot:announcement",
+                    "active": true,
+                    "color": "Green",
+                    "chatter": "Streamer",
+                    "message": "Clips have been disabled for chat."
+                  },
+                  {
+                    "id": "ad9bc070-e137-11ed-9b56-ddd81a7af71a",
+                    "type": "firebot:customvariable",
+                    "active": true,
+                    "ttl": 0,
+                    "name": "clips status",
+                    "variableData": "false"
+                  }
+                ],
+                "id": "538db480-e137-11ed-9b56-ddd81a7af71a"
+              }
+            },
+            {
+              "id": "245f6780-e132-11ed-9b56-ddd81a7af71a",
+              "type": "firebot:toggle-command",
+              "active": true,
+              "toggleType": "toggle",
+              "commandType": "custom",
+              "commandId": "d09b9600-dbbe-11ed-99c3-c983bb9904e0"
+            }
+          ],
+          "id": "1da747f1-e132-11ed-9b56-ddd81a7af71a"
+        },
+        "args": [],
+        "sortTags": [
+          "794beaa2-5557-412e-b1dc-f7fb771edfbd"
+        ],
+        "id": "1da747f0-e132-11ed-9b56-ddd81a7af71a"
       }
     ],
     "timers": [],
