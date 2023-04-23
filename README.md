@@ -16,7 +16,7 @@ Choose the file "Clip.firebotsetup" from the location you just downloaded it to,
 + !clip <streamer name>
 
 ## Streamer Info
-+ Toggle enabled/disabled is currently a manual process
++ Toggle enabled/disabled is controlled by an effect list, add it to a startup event to disable on launch of Firebot
 + Recommend you add an effect queue to allow them to play one after another
 + Customize the colors and position to your liking
 
