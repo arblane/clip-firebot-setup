@@ -6,6 +6,7 @@ To install, download the file Clip.firebotsetup
 Import setup for Firebot by going to Settings > Setups > Import Setup.
 
 Choose the file "Clip.firebotsetup" from the location you just downloaded it to, then click Import setup.
+Also download the provided css and html files. Customize as needed. 
 
 # Usage
 
