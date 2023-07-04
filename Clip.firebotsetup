@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 2,
+  "version": 3,
   "author": "arblane",
   "components": {
     "commands": [
@@ -45,7 +45,7 @@
                           "list": [],
                           "id": "be60fd90-dbbe-11ed-99c3-c983bb9904e0"
                         },
-                        "presetListId": "0eff6080-dbbe-11ed-99c3-c983bb9904e0"
+                        "presetListId": "add90820-1a7d-11ee-bccf-ab1038f73fb5"
                       }
                     ],
                     "id": "76fe0f30-e8f0-11ed-97a1-374bd4710941"
@@ -67,20 +67,6 @@
               },
               "effectLabel": "Follower Check",
               "otherwiseLabel": "Not following"
-            },
-            {
-              "id": "be5e6580-dbbe-11ed-99c3-c983bb9904e0",
-              "type": "firebot:run-effect-list",
-              "active": false,
-              "listType": "preset",
-              "presetListArgs": {
-                "streamer": "$arg[1]"
-              },
-              "effectList": {
-                "list": [],
-                "id": "be60fd90-dbbe-11ed-99c3-c983bb9904e0"
-              },
-              "presetListId": "0eff6080-dbbe-11ed-99c3-c983bb9904e0"
             }
           ]
         },
@@ -98,8 +84,8 @@
         "createdBy": "arblane",
         "createdAt": "2023-04-15T14:53:30-04:00",
         "count": 29,
-        "lastEditBy": "System",
-        "lastEditAt": "2023-06-01T08:35:12-04:00",
+        "lastEditBy": "arblane",
+        "lastEditAt": "2023-07-04T11:22:50-04:00",
         "ignoreBot": true,
         "hidden": true,
         "type": "custom"
@@ -117,17 +103,19 @@
         "effects": {
           "list": [
             {
-              "id": "bcd0cb30-dbbf-11ed-99c3-c983bb9904e0",
+              "id": "add8e114-1a7d-11ee-8f05-c7c6901b16f6",
               "type": "firebot:html",
               "active": true,
               "enterAnimation": "fadeIn",
               "exitAnimation": "fadeOut",
               "inbetweenAnimation": "none",
-              "html": "<style>\n$readFile[E:\\Streaming\\Assets\\Overlays\\clip\\css\\style.css]\n</style>\n<body>\n\t<div class=\"container\">\n  \t\t<div class=\"roundback gradient-background\">\n\t\t\t<div class=\"text-container\">\n\t\t\t\t<h1>$presetListArg[streamer]</h1>\n\t\t\t</div>\n\t\t</div>\n  \t</div>\n</body>",
-              "length": "600"
+              "html": "$evalVars[$readFile[E:\\Streaming\\Assets\\Overlays\\clip\\clips.html]]",
+              "length": "600",
+              "effectLabel": "show clips.html",
+              "overlayInstance": "Clips"
             },
             {
-              "id": "1dc65600-dbbe-11ed-99c3-c983bb9904e0",
+              "id": "add8e115-1a7d-11ee-8f05-c7c6901b16f6",
               "type": "firebot:playvideo",
               "active": true,
               "volume": 5,
@@ -149,18 +137,20 @@
               "reset": true,
               "wait": true,
               "height": "540",
-              "width": "960"
+              "width": "960",
+              "overlayInstance": "Clips"
             },
             {
-              "id": "3259d5c0-dbc2-11ed-99c3-c983bb9904e0",
+              "id": "add8e116-1a7d-11ee-8f05-c7c6901b16f6",
               "type": "firebot:clear-effects",
               "active": true,
               "queueId": "all",
               "overlay": true,
-              "queues": false
+              "queues": false,
+              "overlayInstance": "Clips"
             }
           ],
-          "id": "0eff6081-dbbe-11ed-99c3-c983bb9904e0",
+          "id": "add8e117-1a7d-11ee-8f05-c7c6901b16f6",
           "queue": "68dee870-ce83-11ed-a85b-135af14bc7e9"
         },
         "args": [
@@ -171,7 +161,7 @@
         "sortTags": [
           "c7299530-6b33-4cfe-9571-984695db5292"
         ],
-        "id": "0eff6080-dbbe-11ed-99c3-c983bb9904e0"
+        "id": "add90820-1a7d-11ee-bccf-ab1038f73fb5"
       }
     ],
     "timers": [],
