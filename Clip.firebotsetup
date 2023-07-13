@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 4,
+  "version": 4.1,
   "author": "arblane",
   "components": {
     "commands": [
@@ -119,7 +119,14 @@
     ],
     "counters": [],
     "currencies": [],
-    "effectQueues": [],
+    "effectQueues": [
+      {
+        "name": "Clips",
+        "mode": "auto",
+        "sortTags": [],
+        "id": "9d729480-1e90-11ee-8ad0-8dcbe72c0302"
+      }
+    ],
     "events": [
       {
         "name": "Reset Clips Played This Stream",
@@ -204,7 +211,8 @@
                 "variableTtl": 90
               },
               "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$presetListArg[streamer]]&first=100&started_at=$customVariable[PreviousYear]T00:00:00Z&ended_at=$customVariable[CurrentDate]T00:00:00Z",
-              "method": "GET"
+              "method": "GET",
+              "effectLabel": "Get List of Twitch Clips - twitchclips"
             },
             {
               "id": "c73d5a10-c366-11ec-84e7-5fc839a1e22f",
@@ -214,18 +222,6 @@
               "name": "twitchdata",
               "variableData": "$arrayShuffle[$customVariable[twitchclips,data]]",
               "effectLabel": "twitchdata"
-            },
-            {
-              "id": "29ccde00-1e90-11ee-8ad0-8dcbe72c0302",
-              "type": "firebot:html",
-              "active": true,
-              "enterAnimation": "fadeIn",
-              "exitAnimation": "fadeOut",
-              "inbetweenAnimation": "none",
-              "html": "$evalVars[$readFile[E:\\Streaming\\Assets\\Overlays\\clip\\clips.html]]",
-              "length": "$customVariable[twitchdata,0.duration]",
-              "effectLabel": "show clips.html",
-              "overlayInstance": "Clips"
             },
             {
               "id": "c3b94ee0-1e81-11ee-a4da-0523cb75030f",
@@ -267,9 +263,115 @@
               "effectLabel": "initialize clipsPlayedThisStream"
             },
             {
-              "id": "ab8b54f0-218b-11ee-aa49-37b00f31f5dd",
+              "id": "be6290e0-1e7d-11ee-a4da-0523cb75030f",
+              "type": "firebot:loopeffects",
+              "active": true,
+              "effectList": {
+                "list": [
+                  {
+                    "id": "13277690-1e7e-11ee-a4da-0523cb75030f",
+                    "type": "firebot:customvariable",
+                    "active": true,
+                    "ttl": 90,
+                    "name": "twitchdata",
+                    "variableData": "$arrayFilter[$customVariable[twitchdata], $loopItem, id, true]"
+                  }
+                ],
+                "id": "be6aa730-1e7d-11ee-a4da-0523cb75030f"
+              },
+              "loopMode": "array",
+              "conditionData": {
+                "mode": "exclusive",
+                "conditions": []
+              },
+              "effectLabel": "filter twitchData for clipsplayedThisStream",
+              "arrayToIterate": "$customVariable[clipsPlayedThisStream]"
+            },
+            {
+              "id": "88118a50-21a7-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:http-request",
+              "active": true,
+              "headers": [],
+              "options": {
+                "useTwitchAuth": true,
+                "putResponseInVariable": true,
+                "variableName": "twitchGame",
+                "variableTtl": 30
+              },
+              "url": "https://api.twitch.tv/helix/games?id=$customVariable[twitchdata,0.game_id]",
+              "method": "GET",
+              "effectLabel": "Get Twitch Game - twitchGame"
+            },
+            {
+              "id": "657bb1b0-21b0-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 30,
+              "name": "clipTitle",
+              "variableData": "$trim[$textSubstring[$customVariable[twitchdata,0.title], 0, 60]]",
+              "effectLabel": "clipTitle"
+            },
+            {
+              "id": "e1f631c0-21a6-11ee-aa49-37b00f31f5dd",
               "type": "firebot:conditional-effects",
               "active": true,
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is",
+                        "value": null,
+                        "leftSideValue": "twitchGameData"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "f10b2030-21a6-11ee-aa49-37b00f31f5dd",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 0,
+                        "name": "twitchGameData",
+                        "variableData": "[]",
+                        "effectLabel": "initialize twitchGameData"
+                      }
+                    ],
+                    "id": "e1f917f0-21a6-11ee-aa49-37b00f31f5dd"
+                  }
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [],
+                "id": "e1f7df70-21a6-11ee-aa49-37b00f31f5dd"
+              },
+              "effectLabel": "init twitchGameData"
+            },
+            {
+              "id": "daf3b0d0-21a8-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 90,
+              "name": "twitchGameData",
+              "variableData": "$customVariable[twitchGame,data]",
+              "effectLabel": "twitchGameData"
+            },
+            {
+              "id": "89bbfea0-21aa-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 30,
+              "variableData": "$replace[$customVariable[twitchGameData,0.box_art_url], \"{width}x{height}\", \"50x50\"]",
+              "name": "boxArtUrl",
+              "effectLabel": "boxArtUrl"
+            },
+            {
+              "id": "ab8b54f0-218b-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:conditional-effects",
+              "active": false,
               "ifs": [
                 {
                   "conditionData": {
@@ -306,31 +408,6 @@
               "effectLabel": "initialize clipQueue"
             },
             {
-              "id": "be6290e0-1e7d-11ee-a4da-0523cb75030f",
-              "type": "firebot:loopeffects",
-              "active": true,
-              "effectList": {
-                "list": [
-                  {
-                    "id": "13277690-1e7e-11ee-a4da-0523cb75030f",
-                    "type": "firebot:customvariable",
-                    "active": true,
-                    "ttl": 90,
-                    "name": "twitchdata",
-                    "variableData": "$arrayFilter[$customVariable[twitchdata], $loopItem, id, true]"
-                  }
-                ],
-                "id": "be6aa730-1e7d-11ee-a4da-0523cb75030f"
-              },
-              "loopMode": "array",
-              "conditionData": {
-                "mode": "exclusive",
-                "conditions": []
-              },
-              "effectLabel": "filter twitchData for clipsplayedThisStream",
-              "arrayToIterate": "$customVariable[clipsPlayedThisStream]"
-            },
-            {
               "id": "aaf28cd0-218a-11ee-aa49-37b00f31f5dd",
               "type": "firebot:customvariable",
               "active": false,
@@ -338,6 +415,18 @@
               "effectLabel": "ClipQueue",
               "name": "clipQueue",
               "variableData": "$arrayAdd[$customVariable[clipQueue], $customVariable[twitchdata,0]]"
+            },
+            {
+              "id": "29ccde00-1e90-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:html",
+              "active": true,
+              "enterAnimation": "fadeIn",
+              "exitAnimation": "fadeOut",
+              "inbetweenAnimation": "none",
+              "html": "$evalVars[$readFile[E:\\Streaming\\Assets\\Overlays\\clip\\clips.html]]",
+              "length": "$customVariable[twitchdata,0.duration]",
+              "effectLabel": "show clips.html",
+              "overlayInstance": "Clips"
             },
             {
               "id": "39971510-7b31-11ed-a477-51c759d9aaff",
