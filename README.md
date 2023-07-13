@@ -3,9 +3,6 @@
 # Description
 Firebot setup for playing Twitch clips on stream from user input.
 
-# Version
-4
-
 # Install
 + To install, download:
   + Clip.firebotsetup
