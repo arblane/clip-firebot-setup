@@ -25,7 +25,7 @@ Firebot setup for playing Twitch clips on stream from user input.
 
 
 ## Commands for Chat
-+ !clip <streamer name>
++ !clip (streamer name)
 
 ## Streamer Info
 + Toggle enabled/disabled is controlled by an effect list, add it to a startup event to disable on launch of Firebot
