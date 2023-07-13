@@ -31,6 +31,7 @@ Firebot setup for playing Twitch clips on stream from user input.
 + Toggle enabled/disabled is controlled by an effect list, add it to a startup event to disable on launch of Firebot
 + An overlay instance is provided to keep the effect separate from any other effect overlays, useful when you want to stop playing clips early.
 + Effect has a date range filter of the past 12 months
++ An event is provided as an on start of OBS to reset the clips played this stream variable
 + Customize:
   + the colors and position to your liking
   + the html file location
