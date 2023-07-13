@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 3,
+  "version": 4,
   "author": "arblane",
   "components": {
     "commands": [
@@ -9,13 +9,15 @@
         "active": false,
         "simple": false,
         "sendCooldownMessage": true,
-        "cooldownMessage": "This command is still on cooldown for: {timeLeft}",
-        "cooldown": {},
+        "cooldownMessage": "{user}, try clipping again in {timeLeft}!",
+        "cooldown": {
+          "user": 20
+        },
         "effects": {
           "id": "eb26277c-842a-4044-a3a5-196349689c55",
           "list": [
             {
-              "id": "0b236af0-fe51-11ed-b4d7-71d645f56c8c",
+              "id": "f6ff0570-1e71-11ee-a4da-0523cb75030f",
               "type": "firebot:conditional-effects",
               "active": true,
               "ifs": [
@@ -24,134 +26,315 @@
                     "mode": "exclusive",
                     "conditions": [
                       {
-                        "type": "firebot:followcheck",
-                        "comparisonType": "follows",
+                        "type": "firebot:custom",
+                        "comparisonType": "is",
                         "value": null,
-                        "rightSideValue": "$streamer"
+                        "leftSideValue": "$customVariable[lastClippedStreamer]",
+                        "rightSideValue": "$lowercase[$arg[all]]"
                       }
                     ]
                   },
                   "effectData": {
                     "list": [
                       {
-                        "id": "2e942420-fe51-11ed-b4d7-71d645f56c8c",
-                        "type": "firebot:run-effect-list",
+                        "id": "443c5880-1e70-11ee-a4da-0523cb75030f",
+                        "type": "firebot:chat",
                         "active": true,
-                        "listType": "preset",
-                        "presetListArgs": {
-                          "streamer": "$arg[1]"
-                        },
-                        "effectList": {
-                          "list": [],
-                          "id": "be60fd90-dbbe-11ed-99c3-c983bb9904e0"
-                        },
-                        "presetListId": "add90820-1a7d-11ee-bccf-ab1038f73fb5"
+                        "chatter": "Bot",
+                        "sendAsReply": true,
+                        "message": "Sorry @$username, but $arg[all] cannot be added to the clip queue twice in a row."
                       }
                     ],
-                    "id": "76fe0f30-e8f0-11ed-97a1-374bd4710941"
-                  },
-                  "label": "Following"
+                    "id": "270259e0-1e70-11ee-a4da-0523cb75030f"
+                  }
                 }
               ],
               "otherwiseEffectData": {
                 "list": [
                   {
-                    "id": "9e13b480-e8f0-11ed-97a1-374bd4710941",
-                    "type": "firebot:chat",
+                    "id": "30a73920-1e70-11ee-a4da-0523cb75030f",
+                    "type": "firebot:customvariable",
                     "active": true,
-                    "chatter": "Bot",
-                    "message": "Sorry @$user, but you need to Follow if you want to use the $commandTrigger command."
+                    "ttl": 15,
+                    "name": "lastClippedStreamer",
+                    "variableData": "$lowercase[$arg[all]]",
+                    "effectLabel": "record current streamer name"
+                  },
+                  {
+                    "id": "9a4cd100-1e70-11ee-a4da-0523cb75030f",
+                    "type": "firebot:run-effect-list",
+                    "active": true,
+                    "listType": "preset",
+                    "presetListArgs": {
+                      "streamer": "$arg[all]",
+                      "name": "$arg[all]"
+                    },
+                    "effectList": {
+                      "list": [],
+                      "id": "9a4f4200-1e70-11ee-a4da-0523cb75030f"
+                    },
+                    "presetListId": "9c1d3e20-c368-11ec-be40-ff01da2eede2",
+                    "dontWait": true,
+                    "effectLabel": "Add streamer to clip queue"
                   }
                 ],
-                "id": "76fcafa0-e8f0-11ed-97a1-374bd4710941"
-              },
-              "effectLabel": "Follower Check",
-              "otherwiseLabel": "Not following"
+                "id": "27012160-1e70-11ee-a4da-0523cb75030f"
+              }
             }
-          ]
+          ],
+          "queue": null
         },
         "restrictionData": {
-          "restrictions": [],
+          "restrictions": [
+            {
+              "id": "455915e0-1a0c-11ee-b2b2-b59561181545",
+              "type": "firebot:followcheck",
+              "value": "arblane"
+            }
+          ],
           "mode": "all",
           "sendFailMessage": true,
-          "failMessage": "Sorry, you cannot use this command because: {reason}"
+          "failMessage": "Sorry {user}, but you need to Follow if you want to use the $commandTrigger command.",
+          "useCustomFailMessage": true
         },
-        "aliases": [],
-        "sortTags": [],
+        "aliases": [
+          "!watch"
+        ],
+        "sortTags": [
+          "1103ba8e-b2dc-47b7-8ced-d489bfecd957"
+        ],
         "treatQuotedTextAsSingleArg": false,
         "trigger": "!clip",
         "id": "d09b9600-dbbe-11ed-99c3-c983bb9904e0",
         "createdBy": "arblane",
         "createdAt": "2023-04-15T14:53:30-04:00",
-        "count": 29,
+        "count": 92,
         "lastEditBy": "arblane",
-        "lastEditAt": "2023-07-04T11:22:50-04:00",
+        "lastEditAt": "2023-07-09T16:00:44-04:00",
         "ignoreBot": true,
-        "hidden": true,
-        "type": "custom"
+        "hidden": false,
+        "type": "custom",
+        "useCustomCooldownMessage": true
       }
     ],
     "counters": [],
     "currencies": [],
-    "effectQueues": [],
+    "effectQueues": [
+      {
+        "name": "Clips",
+        "mode": "auto",
+        "sortTags": [],
+        "id": "9d729480-1e90-11ee-8ad0-8dcbe72c0302"
+      }
+    ],
     "events": [],
     "eventGroups": [],
     "hotkeys": [],
     "presetEffectLists": [
       {
-        "name": "Clip",
+        "name": "RandomClip",
         "effects": {
           "list": [
             {
-              "id": "add8e114-1a7d-11ee-8f05-c7c6901b16f6",
+              "id": "dbb055e0-1e8e-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 15,
+              "name": "CurrentDate",
+              "effectLabel": "CurrentDate",
+              "variableData": "$date[YYYY-MM-DD]"
+            },
+            {
+              "id": "ee66fc20-1e8e-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 15,
+              "name": "PreviousYear",
+              "effectLabel": "PreviousYear",
+              "variableData": "$date[YYYY-MM-DD, -12, months]"
+            },
+            {
+              "id": "e0c04420-c366-11ec-84e7-5fc839a1e22f",
+              "type": "firebot:http-request",
+              "active": true,
+              "headers": [],
+              "options": {
+                "useTwitchAuth": true,
+                "putResponseInVariable": true,
+                "variableName": "twitchclips",
+                "variableTtl": 90
+              },
+              "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$presetListArg[streamer]]&first=100&started_at=$customVariable[PreviousYear]T00:00:00Z&ended_at=$customVariable[CurrentDate]T00:00:00Z",
+              "method": "GET"
+            },
+            {
+              "id": "c73d5a10-c366-11ec-84e7-5fc839a1e22f",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 90,
+              "name": "twitchdata",
+              "variableData": "$arrayShuffle[$customVariable[twitchclips,data]]",
+              "effectLabel": "twitchdata"
+            },
+            {
+              "id": "29ccde00-1e90-11ee-8ad0-8dcbe72c0302",
               "type": "firebot:html",
               "active": true,
               "enterAnimation": "fadeIn",
               "exitAnimation": "fadeOut",
               "inbetweenAnimation": "none",
               "html": "$evalVars[$readFile[E:\\Streaming\\Assets\\Overlays\\clip\\clips.html]]",
-              "length": "600",
+              "length": "$customVariable[twitchdata,0.duration]",
               "effectLabel": "show clips.html",
               "overlayInstance": "Clips"
             },
             {
-              "id": "add8e115-1a7d-11ee-8f05-c7c6901b16f6",
-              "type": "firebot:playvideo",
+              "id": "c3b94ee0-1e81-11ee-a4da-0523cb75030f",
+              "type": "firebot:conditional-effects",
               "active": true,
-              "volume": 5,
-              "position": "Middle",
-              "customCoords": {
-                "top": 0,
-                "bottom": null,
-                "left": 0,
-                "right": null
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is",
+                        "value": null,
+                        "leftSideValue": "$customVariable[clipsPlayedThisStream]"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "edb6aad0-1e81-11ee-a4da-0523cb75030f",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 0,
+                        "name": "clipsPlayedThisStream",
+                        "variableData": "[]"
+                      }
+                    ],
+                    "id": "c3bc8330-1e81-11ee-a4da-0523cb75030f"
+                  }
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [],
+                "id": "c3bb4ab0-1e81-11ee-a4da-0523cb75030f"
               },
-              "enterAnimation": "fadeIn",
-              "exitAnimation": "fadeOut",
-              "inbetweenAnimation": "none",
-              "videoType": "Random Twitch Clip",
-              "youtube": "",
-              "file": "",
-              "twitchClipUrl": "",
-              "twitchClipUsername": "$presetListArg[streamer]",
-              "reset": true,
-              "wait": true,
-              "height": "540",
-              "width": "960",
-              "overlayInstance": "Clips"
+              "effectLabel": "initialize clipsPlayedThisStream"
             },
             {
-              "id": "add8e116-1a7d-11ee-8f05-c7c6901b16f6",
-              "type": "firebot:clear-effects",
+              "id": "be6290e0-1e7d-11ee-a4da-0523cb75030f",
+              "type": "firebot:loopeffects",
               "active": true,
-              "queueId": "all",
-              "overlay": true,
-              "queues": false,
-              "overlayInstance": "Clips"
+              "effectList": {
+                "list": [
+                  {
+                    "id": "13277690-1e7e-11ee-a4da-0523cb75030f",
+                    "type": "firebot:customvariable",
+                    "active": true,
+                    "ttl": 90,
+                    "name": "twitchdata",
+                    "variableData": "$arrayFilter[$customVariable[twitchdata], $loopItem, id, true]"
+                  }
+                ],
+                "id": "be6aa730-1e7d-11ee-a4da-0523cb75030f"
+              },
+              "loopMode": "array",
+              "conditionData": {
+                "mode": "exclusive",
+                "conditions": []
+              },
+              "effectLabel": "filter twitchData for clipsplayedThisStream",
+              "arrayToIterate": "$customVariable[clipsPlayedThisStream]"
+            },
+            {
+              "id": "39971510-7b31-11ed-a477-51c759d9aaff",
+              "type": "firebot:conditional-effects",
+              "active": true,
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is not",
+                        "value": null,
+                        "leftSideValue": "$customVariable[twitchdata,0.id]"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "51174460-1e8f-11ee-8ad0-8dcbe72c0302",
+                        "type": "firebot:playvideo",
+                        "active": true,
+                        "volume": 5,
+                        "position": "Middle",
+                        "customCoords": {
+                          "top": 0,
+                          "bottom": null,
+                          "left": 0,
+                          "right": null
+                        },
+                        "enterAnimation": "fadeIn",
+                        "exitAnimation": "fadeOut",
+                        "inbetweenAnimation": "none",
+                        "videoType": "Twitch Clip",
+                        "youtube": "",
+                        "file": "",
+                        "twitchClipUrl": "$customVariable[twitchdata,0.id]",
+                        "twitchClipUsername": "",
+                        "reset": true,
+                        "wait": true,
+                        "height": "540",
+                        "width": "960",
+                        "overlayInstance": "Clips",
+                        "length": "$customVariable[twitchdata,0.duration]"
+                      },
+                      {
+                        "id": "2712e8c0-1e7d-11ee-a4da-0523cb75030f",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 0,
+                        "name": "clipsPlayedThisStream",
+                        "variableData": "$arrayAdd[$customVariable[clipsPlayedThisStream], $customVariable[twitchdata,0.id]]",
+                        "effectLabel": "clipsPlayedThisStream"
+                      }
+                    ],
+                    "id": "399c4530-7b31-11ed-a477-51c759d9aaff"
+                  }
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [
+                  {
+                    "id": "a2a6ae80-7b31-11ed-a477-51c759d9aaff",
+                    "type": "firebot:chat",
+                    "active": true,
+                    "chatter": "Bot",
+                    "message": "Sorry, $username, there were no clips of $presetListArg[name] available to play",
+                    "sendAsReply": true
+                  }
+                ],
+                "id": "399a9780-7b31-11ed-a477-51c759d9aaff"
+              }
+            },
+            {
+              "id": "2fef2fe0-a302-11ed-8798-878d851617cc",
+              "type": "firebot:log-message",
+              "active": true,
+              "logLevel": "Info",
+              "logMessage": "$customVariable[twitchclips,data]"
             }
           ],
-          "id": "add8e117-1a7d-11ee-8f05-c7c6901b16f6",
-          "queue": "68dee870-ce83-11ed-a85b-135af14bc7e9"
+          "id": "9c1d6530-c368-11ec-be40-ff01da2eede2",
+          "queue": "9d729480-1e90-11ee-8ad0-8dcbe72c0302"
         },
         "args": [
           {
@@ -159,9 +342,36 @@
           }
         ],
         "sortTags": [
+          "85f0e950-9fd7-4f6d-a537-e7fc7fed3517",
+          "7b44937d-9910-4a10-aff4-c256ed137019",
+          "9d94f6dc-52cd-4e05-9423-db7f724223cf",
           "c7299530-6b33-4cfe-9571-984695db5292"
         ],
-        "id": "add90820-1a7d-11ee-bccf-ab1038f73fb5"
+        "id": "9c1d3e20-c368-11ec-be40-ff01da2eede2"
+      },
+      {
+        "name": "[TP] Stop Current Clips",
+        "effects": {
+          "list": [
+            {
+              "id": "c0efc640-1e8f-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:clear-effects",
+              "active": true,
+              "queueId": "all",
+              "overlay": true,
+              "sounds": false,
+              "queues": false,
+              "overlayInstance": "Clips"
+            }
+          ],
+          "id": "c0efc641-1e8f-11ee-8ad0-8dcbe72c0302"
+        },
+        "args": [],
+        "sortTags": [
+          "794beaa2-5557-412e-b1dc-f7fb771edfbd",
+          "c7299530-6b33-4cfe-9571-984695db5292"
+        ],
+        "id": "c0efc640-1e8f-11ee-92eb-9f052aff649c"
       }
     ],
     "timers": [],
