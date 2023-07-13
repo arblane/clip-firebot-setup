@@ -119,15 +119,54 @@
     ],
     "counters": [],
     "currencies": [],
-    "effectQueues": [
+    "effectQueues": [],
+    "events": [
       {
-        "name": "Clips",
-        "mode": "auto",
+        "name": "Reset Clips Played This Stream",
+        "active": true,
+        "cached": true,
         "sortTags": [],
-        "id": "9d729480-1e90-11ee-8ad0-8dcbe72c0302"
+        "eventId": "stream-started",
+        "sourceId": "ebiggz-obs-control",
+        "effects": {
+          "list": [
+            {
+              "id": "c8e9a2b0-1e91-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 0,
+              "name": "clipsPlayedThisStream",
+              "variableData": "[]",
+              "effectLabel": "clipsPlayedThisStream"
+            },
+            {
+              "id": "e8c403d0-1e93-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 0,
+              "name": "clips status",
+              "variableData": "false",
+              "effectLabel": "clips status"
+            },
+            {
+              "id": "6f04b7b1-1e93-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:toggle-command",
+              "active": true,
+              "toggleType": "disable",
+              "commandType": "custom",
+              "commandId": "d09b9600-dbbe-11ed-99c3-c983bb9904e0",
+              "effectLabel": "Disable !clip"
+            }
+          ],
+          "id": "be778860-1e91-11ee-8ad0-8dcbe72c0302"
+        },
+        "filterData": {
+          "mode": "exclusive",
+          "filters": []
+        },
+        "id": "ceba4870-1e91-11ee-8ad0-8dcbe72c0302"
       }
     ],
-    "events": [],
     "eventGroups": [],
     "hotkeys": [],
     "presetEffectLists": [
@@ -213,7 +252,8 @@
                         "active": true,
                         "ttl": 0,
                         "name": "clipsPlayedThisStream",
-                        "variableData": "[]"
+                        "variableData": "[]",
+                        "effectLabel": "clipsPlayedThisStream"
                       }
                     ],
                     "id": "c3bc8330-1e81-11ee-a4da-0523cb75030f"
@@ -225,6 +265,45 @@
                 "id": "c3bb4ab0-1e81-11ee-a4da-0523cb75030f"
               },
               "effectLabel": "initialize clipsPlayedThisStream"
+            },
+            {
+              "id": "ab8b54f0-218b-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:conditional-effects",
+              "active": true,
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is",
+                        "value": null,
+                        "leftSideValue": "$customVariable[clipQueue]"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "b5dceef0-218b-11ee-aa49-37b00f31f5dd",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 0,
+                        "effectLabel": "ClipQueue",
+                        "name": "clipQueue",
+                        "variableData": "[]"
+                      }
+                    ],
+                    "id": "c3bc8330-1e81-11ee-a4da-0523cb75030f"
+                  }
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [],
+                "id": "c3bb4ab0-1e81-11ee-a4da-0523cb75030f"
+              },
+              "effectLabel": "initialize clipQueue"
             },
             {
               "id": "be6290e0-1e7d-11ee-a4da-0523cb75030f",
@@ -250,6 +329,15 @@
               },
               "effectLabel": "filter twitchData for clipsplayedThisStream",
               "arrayToIterate": "$customVariable[clipsPlayedThisStream]"
+            },
+            {
+              "id": "aaf28cd0-218a-11ee-aa49-37b00f31f5dd",
+              "type": "firebot:customvariable",
+              "active": false,
+              "ttl": 0,
+              "effectLabel": "ClipQueue",
+              "name": "clipQueue",
+              "variableData": "$arrayAdd[$customVariable[clipQueue], $customVariable[twitchdata,0]]"
             },
             {
               "id": "39971510-7b31-11ed-a477-51c759d9aaff",
@@ -324,13 +412,6 @@
                 ],
                 "id": "399a9780-7b31-11ed-a477-51c759d9aaff"
               }
-            },
-            {
-              "id": "2fef2fe0-a302-11ed-8798-878d851617cc",
-              "type": "firebot:log-message",
-              "active": true,
-              "logLevel": "Info",
-              "logMessage": "$customVariable[twitchclips,data]"
             }
           ],
           "id": "9c1d6530-c368-11ec-be40-ff01da2eede2",
