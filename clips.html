@@ -1,43 +1,38 @@
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap');
 	:root {
 		--hue: 50;
   		--saturation: 50%;
 		--base-color: $customVariable[userColor];
 		--light-color: hsl(var(--hue), var(--saturation), 90%);
 		--dark-color: hsl(var(--hue), var(--saturation), 10%);
-		}
+	}
+	header, footer { height: 180px; width: 1080px; text-align: center; padding: 10px; }
+	img { border-radius: 25px; vertical-align: middle; }
 	.container { display: flex; justify-content: center; align-items: center; width: 1920px; height: 1080px; }
-	.roundback { border-radius: 25px; width: 55%; height: 70%; font-family: Arial, sans-serif; text-align: center; padding: 15px; }
-	.image-container, .text-container { display: inline-block; vertical-align: middle; }
-	.image-container img { border-radius: 25px; }
-	.video-container { height: 540px; }
-	h1 { color: black; text-transform: uppercase; }
-	h2, h3 { color: black; text-transform: capitalize; }
-	/* .gradient-background { background: linear-gradient(300deg,#8412c3,#aa5dd5,#52057c); background-size: 180% 180%; animation: gradient-animation 18s ease infinite; } */
-	.gradient-background { background: linear-gradient(300deg,var(--base-color),var(--light-color),var(--dark-color)); background-size: 180% 180%; animation: gradient-animation 18s ease infinite; }
+	.roundback { border-radius: 25px; width: 60%; height: 85%; }
+	.avatar-large { width: 100px; height: 100px; }
+	.avatar-medium { width: 50px; height: 50px; }
+	.video-container { height: 550px; }
+	.text { font-family: 'M PLUS Rounded 1c', sans-serif; color: black; display: inline-block; vertical-align: middle; }
+	.text h1 { text-transform: uppercase; }
+	.text h2, h3 { text-transform: capitalize; }
+	.gradient-background { background: linear-gradient(300deg,var(--dark-color),var(--base-color),var(--light-color)); background-size: 180% 180%; animation: gradient-animation 18s ease infinite; }
 	@keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 </style>
-<body>
-	<div class="container">
-  		<div class="roundback gradient-background">
-			<div class="image-container">
-				<img src="$userAvatarUrl[$presetListArg[streamer]]" alt="profile image - streamer" width="100" height="100">
-			</div>
-			<div class="text-container">
-				<h1>$presetListArg[streamer]</h1>
-			</div>
-			<div class="video-container"/>
-			<div class="image-container">
-				<img src="$userAvatarUrl[$customVariable[twitchdata,0.creator_name]]" alt="profile image - clipper" width="50" height="50">
-			</div>
-			<div class="text-container">
-				<h2>$customVariable[clipTitle]</h2>
-				<h3>Clipped by: $customVariable[twitchdata,0.creator_name] on $customVariable[clipDate]</h3>
-				<h3>Game: $customVariable[twitchGameData,0.name]</h3>
-			</div>
-			<div class="image-container">
-				<img src="$customVariable[boxArtUrl]" alt="profile image">
-			</div>
-		</div>
-  	</div>
-</body>
+<div class="container">
+	<div class="roundback gradient-background">
+		<header>
+			<img src="$userAvatarUrl[$presetListArg[streamer]]" alt="profile image - streamer" class="avatar-large"><br>
+			<span class="text"><h1>$presetListArg[streamer]</h1></span>
+		</header>
+		<div class="video-container"></div>
+		<footer>
+			<span class="text"><h2>$customVariable[clipTitle]</h2></span><br>
+			<img src="$userAvatarUrl[$customVariable[twitchdata,0.creator_name]]" alt="profile image - clipper" class="avatar-medium">
+			<span class="text"><h3>Clipped by: $customVariable[twitchdata,0.creator_name] on $customVariable[clipDate]</h3></span>
+			<span class="text"><h3>Game: $customVariable[twitchGameData,0.name]</h3></span>
+			<img src="$customVariable[boxArtUrl]" alt="box art" class="avatar-medium">
+		</footer>
+	</div>
+</div>
