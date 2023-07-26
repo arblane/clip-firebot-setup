@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 4.3,
+  "version": 4.4,
   "author": "arblane",
   "components": {
     "commands": [
@@ -411,13 +411,54 @@
               "variableData": "$textSubstring[$customVariable[twitchClipsData,0.created_at], 0, 10]"
             },
             {
-              "id": "04afcb20-2bc7-11ee-95cd-a1b91b9c8cf9",
-              "type": "firebot:customvariable",
+              "id": "99b08e50-2bd4-11ee-95cd-a1b91b9c8cf9",
+              "type": "firebot:conditional-effects",
               "active": true,
-              "ttl": 90,
-              "name": "clipTitle",
-              "variableData": "$trim[$textSubstring[$customVariable[twitchClipsData,0.title], 0, 60]]",
-              "effectLabel": "Formatted clipTitle"
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is greater than or equal to",
+                        "value": null,
+                        "leftSideValue": "$textLength[$customVariable[twitchClipsData,0.title]]",
+                        "rightSideValue": "60"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "aab89a30-2bd4-11ee-95cd-a1b91b9c8cf9",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 90,
+                        "name": "clipTitle",
+                        "variableData": "$trim[$textSubstring[$customVariable[twitchClipsData,0.title], 0, 60]...]",
+                        "effectLabel": "Formatted clipTitle"
+                      }
+                    ],
+                    "id": "99b3c2a0-2bd4-11ee-95cd-a1b91b9c8cf9"
+                  },
+                  "label": "Length of Title >= 60"
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [
+                  {
+                    "id": "e27825d0-2bd4-11ee-95cd-a1b91b9c8cf9",
+                    "type": "firebot:customvariable",
+                    "active": true,
+                    "ttl": 90,
+                    "variableData": "$trim[$customVariable[twitchClipsData,0.title]]",
+                    "name": "clipTitle",
+                    "effectLabel": "clipTitle"
+                  }
+                ],
+                "id": "99b28a20-2bd4-11ee-95cd-a1b91b9c8cf9"
+              }
             }
           ],
           "id": "87fb57b0-2bc2-11ee-95cd-a1b91b9c8cf9"
