@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 4.4,
+  "version": 4.5,
   "author": "arblane",
   "components": {
     "commands": [
@@ -381,7 +381,19 @@
               },
               "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$presetListArg[streamer]]&first=100&started_at=$customVariable[PreviousYear]T00:00:00Z&ended_at=$customVariable[CurrentDate]T00:00:00Z",
               "method": "GET",
-              "effectLabel": "Get List of Twitch Clips"
+              "effectLabel": "Get List of Twitch Clips (Date Filter)"
+            },
+            {
+              "id": "a13acaa0-2fa8-11ee-84d6-11f939a331b1",
+              "type": "firebot:http-request",
+              "active": false,
+              "headers": [],
+              "options": {
+                "useTwitchAuth": true
+              },
+              "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$presetListArg[streamer]]&first=100",
+              "method": "GET",
+              "effectLabel": "Get List of Twitch Clips (No Date Filter)"
             },
             {
               "id": "e3706db0-2bc2-11ee-95cd-a1b91b9c8cf9",
@@ -406,8 +418,8 @@
               "type": "firebot:customvariable",
               "active": true,
               "ttl": 90,
-              "name": "clipDate",
-              "effectLabel": "Formatted clipDate",
+              "name": "ClipDate",
+              "effectLabel": "Formatted ClipDate",
               "variableData": "$textSubstring[$customVariable[twitchClipsData,0.created_at], 0, 10]"
             },
             {
@@ -435,9 +447,9 @@
                         "type": "firebot:customvariable",
                         "active": true,
                         "ttl": 90,
-                        "name": "clipTitle",
+                        "name": "ClipTitle",
                         "variableData": "$trim[$textSubstring[$customVariable[twitchClipsData,0.title], 0, 60]...]",
-                        "effectLabel": "Formatted clipTitle"
+                        "effectLabel": "Formatted ClipTitle"
                       }
                     ],
                     "id": "99b3c2a0-2bd4-11ee-95cd-a1b91b9c8cf9"
@@ -453,8 +465,8 @@
                     "active": true,
                     "ttl": 90,
                     "variableData": "$trim[$customVariable[twitchClipsData,0.title]]",
-                    "name": "clipTitle",
-                    "effectLabel": "clipTitle"
+                    "name": "ClipTitle",
+                    "effectLabel": "ClipTitle"
                   }
                 ],
                 "id": "99b28a20-2bd4-11ee-95cd-a1b91b9c8cf9"
@@ -476,7 +488,7 @@
         "id": "87fb30a0-2bc2-11ee-95cd-a1b91b9c8cf9"
       },
       {
-        "name": "[API] Get Twitch Game Info by Id (Depends on Get User Clips)",
+        "name": "[API] Get Twitch Game Info by Id (Depends on [API] Get User Clips)",
         "effects": {
           "list": [
             {
