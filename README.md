@@ -3,6 +3,9 @@
 # Description
 Firebot setup for playing Twitch clips on stream from user input.
 
+# Requirement
+- Firebot 5.57.0-nightly-23.03.22 (JSON Stringify is bugged in 5.57.0)
+
 # Install
 + To install, download:
   + Clip.firebotsetup
