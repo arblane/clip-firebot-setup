@@ -4,7 +4,7 @@
 Firebot setup for playing Twitch clips on stream from user input.
 
 # Requirement
-- Firebot 5.57.0-nightly-23.03.22 (JSON Stringify is bugged in 5.57.0)
+- Firebot 5.58.0
 
 # Install
 + To install, download:
@@ -23,7 +23,6 @@ Firebot setup for playing Twitch clips on stream from user input.
   + duplicate clips per stream session
 + Cooldown to prevent chat from spamming, currently 20 seconds per user
 
-
 ## Commands for Chat
 + !clip (streamer name)
 
@@ -39,6 +38,12 @@ Firebot setup for playing Twitch clips on stream from user input.
   + the html file location
   + the date filter: shorter, longer, or disable
   + there is a 'broken image' image in the game box art img tag that needs to be customized
+
+# Additional
++ This is a complete setup, if you want to put your own version together, check out the following repo's for modular pieces used by this setup
+  + [API-Random-Twitch-Clip](https://github.com/arblane/API-Random-Twitch-Clip)
+  + [API-Get-Twitch-Users-Color](https://github.com/arblane/API-Get-Twitch-Users-Color)
+  + [API-Twitch-Game-Info](https://github.com/arblane/API-Twitch-Game-Info)
 
 # Credits
 + Inspired by: MattyCanny
