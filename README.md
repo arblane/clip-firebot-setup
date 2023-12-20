@@ -3,15 +3,14 @@
 # Description
 Firebot setup for playing Twitch clips on stream from user input.
 
-# Requirement
-- Firebot 5.58.0
+# Compatiability
+- Firebot 5.59.2+
 
 # Install
-+ To install, download:
++ Download
   + Clip.firebotsetup
   + clips.html
-+ Import setup for Firebot by going to Settings > Setups > Import Setup.
-  + Choose the file "Clip.firebotsetup" from the location you just downloaded it to, then click Import setup. 
++ Import the downloaded firebotsetup file
   + You will need to edit the preset effect to change the location of the html file.
 
 # Usage
@@ -24,7 +23,7 @@ Firebot setup for playing Twitch clips on stream from user input.
 + Cooldown to prevent chat from spamming, currently 20 seconds per user
 
 ## Commands for Chat
-+ !clip (streamer name)
++ !clip (streamer name with or without the leading @ symbol)
 
 ## Streamer Info
 + Toggle enabled/disabled is controlled by an effect list
@@ -32,6 +31,7 @@ Firebot setup for playing Twitch clips on stream from user input.
   + An event on startup of OBS is included to reset the clips played this stream session
 + An overlay instance is provided to keep the effect separate from any other effect overlays, useful when you want to stop playing clips early.
 + Effect has a date range filter of the past 12 months
+  + You can toggle this on/off in '[API] Get User Clips' preset effect
 + The html/css file will make use of the targeted streamer's color to generate a gradient background
 + Customize:
   + the size and position to your liking
