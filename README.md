@@ -3,7 +3,7 @@
 # Description
 Firebot setup for playing Twitch clips on stream from user input.
 
-# Compatiability
+# Compatibility
 - Firebot 5.59.2+
 
 # Install
