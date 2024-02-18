@@ -1,94 +1,118 @@
 <style>
-@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap");
-:root {
-  --hue: 50;
-  --saturation: 50%;
-  --base-color: $customVariable[userColor];
-  --light-color: hsl(var(--hue), var(--saturation), 90%);
-  --dark-color: hsl(var(--hue), var(--saturation), 10%);
-}
-header, footer {
-  height: 180px;
-  width: 1080px;
-  text-align: center;
-  padding: 10px;
-}
-img {
-  border-radius: 25px;
-  vertical-align: middle;
-}
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1920px;
-  height: 1080px;
-}
-.roundback {
-  border-radius: 25px;
-  width: 60%;
-  height: 85%;
-}
-.avatar-large {
-  width: 100px;
-  height: 100px;
-}
-.avatar-medium {
-  width: 50px;
-  height: 50px;
-}
-.video-container {
-  height: 520px;
-}
-.text {
-  color: black;
-  font-family: "M PLUS Rounded 1c", sans-serif;
-  display: inline-block;
-  vertical-align: middle;
-}
-.text h1 {
-  text-transform: uppercase;
-  line-height: 10px;
-}
-.text h2, h3 {
-  text-transform: capitalize;
-  line-height: 1px;
-}
-.gradient-background {
-  background: linear-gradient(
-    300deg,
-    var(--dark-color),
-    var(--base-color),
-    var(--light-color)
-  );
-  background-size: 180% 180%;
-  animation: gradient-animation 18s ease infinite;
-}
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
+  @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap");
+
+  :root {
+    --hue: 50;
+    --saturation: 50%;
+    --base-color: $$userColor;
+    --light-color: hsl(var(--hue), var(--saturation), 90%);
+    --dark-color: hsl(var(--hue), var(--saturation), 10%);
   }
-  50% {
-    background-position: 100% 50%;
+
+  header,
+  footer {
+    height: 180px;
+    width: 1080px;
+    text-align: center;
+    padding: 10px;
   }
-  100% {
-    background-position: 0% 50%;
+
+  img {
+    border-radius: 25px;
+    vertical-align: middle;
   }
-}
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1920px;
+    height: 1080px;
+  }
+
+  .roundback {
+    border-radius: 25px;
+    width: 60%;
+    height: 85%;
+  }
+
+  .avatar-large {
+    width: 100px;
+    height: 100px;
+  }
+
+  .avatar-medium {
+    width: 50px;
+    height: 50px;
+  }
+
+  .video-container {
+    height: 520px;
+  }
+
+  .text {
+    color: black;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .text h1 {
+    text-transform: uppercase;
+    line-height: 10px;
+  }
+
+  .text h2,
+  h3 {
+    text-transform: capitalize;
+    line-height: 1px;
+  }
+
+  .gradient-background {
+    background: linear-gradient(300deg,
+        var(--dark-color),
+        var(--base-color),
+        var(--light-color));
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 </style>
 <div class="container">
-	<div class="roundback gradient-background">
-		<header>
-			<img src="$userAvatarUrl[$customVariable[twitchClipsData,0.broadcaster_name]]" alt="profile image - streamer" class="avatar-large"><br>
-			<span class="text"><h1>$customVariable[twitchClipsData,0.broadcaster_name]</h1></span>
-		</header>
-		<div class="video-container"></div>
-		<footer>
-			<span class="text"><h2>$customVariable[ClipTitle]</h2></span><br>
-			<img src="$userAvatarUrl[$customVariable[twitchClipsData,0.creator_name]]" alt="profile image - clipper" class="avatar-large">
-			<span class="text"><h3>Clipped by: $customVariable[twitchClipsData,0.creator_name] on $customVariable[ClipDate]</h3><br>
-			<h3>Game: $customVariable[twitchGameData,0.name]</h3></span>
-			<img src="$customVariable[boxArtUrl]" alt="box art" class="avatar-large" onerror="this.onerror=null;this.src='../images/broken_image_FILL0_wght400_GRAD0_opsz48.png'">
-		</footer>
-	</div>
+  <div class="roundback gradient-background">
+    <header>
+      <img src="$userAvatarUrl[$$twitchClipsData[0 ,broadcaster_name]]" alt="profile image - streamer"
+        class="avatar-large"><br>
+      <span class="text">
+        <h1>$$twitchClipsData[0, broadcaster_name]</h1>
+      </span>
+    </header>
+    <div class="video-container"></div>
+    <footer>
+      <span class="text">
+        <h2>$$ClipTitle</h2>
+      </span><br>
+      <img src="$userAvatarUrl[$$twitchClipsData[0 ,creator_name]]" alt="profile image - clipper"
+        class="avatar-large">
+      <span class="text">
+        <h3>Clipped by: $$twitchClipsData[0, creator_name] on $$ClipDate</h3><br>
+        <h3>Game: $$twitchGameData[0, name]</h3>
+      </span>
+      <img src="$$boxArtUrl" alt="box art" class="avatar-large"
+        onerror="this.onerror=null;this.src='../images/broken_image_FILL0_wght400_GRAD0_opsz48.png'">
+    </footer>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 {
   "name": "Clip",
   "description": "Clips from chat input",
-  "version": 4.5,
+  "version": 4.6,
   "author": "arblane",
   "components": {
     "commands": [
@@ -110,7 +110,7 @@
         "createdAt": "2023-04-15T14:53:30-04:00",
         "count": 102,
         "lastEditBy": "System",
-        "lastEditAt": "2023-07-26T11:24:33-04:00",
+        "lastEditAt": "2024-02-17T07:33:05.129-05:00",
         "ignoreBot": true,
         "hidden": false,
         "type": "custom",
@@ -124,7 +124,9 @@
         "name": "Clips",
         "mode": "auto",
         "sortTags": [],
-        "id": "9d729480-1e90-11ee-8ad0-8dcbe72c0302"
+        "id": "9d729480-1e90-11ee-8ad0-8dcbe72c0302",
+        "active": true,
+        "length": 0
       }
     ],
     "events": [
@@ -172,11 +174,148 @@
           "filters": []
         },
         "id": "ceba4870-1e91-11ee-8ad0-8dcbe72c0302"
+      },
+      {
+        "name": "Reset Clips Played This Stream",
+        "active": true,
+        "cached": true,
+        "sortTags": [],
+        "eventId": "stream-started",
+        "sourceId": "ebiggz-obs-control",
+        "effects": {
+          "list": [
+            {
+              "id": "c8e9a2b0-1e91-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 0,
+              "name": "clipsPlayedThisStream",
+              "variableData": "[]",
+              "effectLabel": "clipsPlayedThisStream"
+            },
+            {
+              "id": "e8c403d0-1e93-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 0,
+              "name": "clipsStatus",
+              "variableData": "false",
+              "effectLabel": "clipsStatus"
+            },
+            {
+              "id": "6f04b7b1-1e93-11ee-8ad0-8dcbe72c0302",
+              "type": "firebot:toggle-command",
+              "active": true,
+              "toggleType": "disable",
+              "commandType": "custom",
+              "commandId": "d09b9600-dbbe-11ed-99c3-c983bb9904e0",
+              "effectLabel": "Disable !clip"
+            },
+            {
+              "id": "1ac98d30-3aa7-11ee-b257-119212737812",
+              "type": "firebot:chat",
+              "active": true,
+              "chatter": "Bot",
+              "message": "Clips stream session has been reset!"
+            }
+          ],
+          "id": "be778860-1e91-11ee-8ad0-8dcbe72c0302"
+        },
+        "filterData": {
+          "mode": "exclusive",
+          "filters": []
+        },
+        "id": "ceba4870-1e91-11ee-8ad0-8dcbe72c0302"
       }
     ],
     "eventGroups": [],
     "hotkeys": [],
     "presetEffectLists": [
+      {
+        "name": "[TP] ToggleClip",
+        "effects": {
+          "list": [
+            {
+              "id": "538b1c70-e137-11ed-9b56-ddd81a7af71a",
+              "type": "firebot:conditional-effects",
+              "active": true,
+              "ifs": [
+                {
+                  "conditionData": {
+                    "mode": "exclusive",
+                    "conditions": [
+                      {
+                        "type": "firebot:custom",
+                        "comparisonType": "is",
+                        "value": null,
+                        "leftSideValue": "$$clipsStatus",
+                        "rightSideValue": "false"
+                      }
+                    ]
+                  },
+                  "effectData": {
+                    "list": [
+                      {
+                        "id": "6db25cd0-e137-11ed-9b56-ddd81a7af71a",
+                        "type": "firebot:announcement",
+                        "active": true,
+                        "color": "Green",
+                        "chatter": "Streamer",
+                        "message": "Clips have been enabled for chat. Type !clip followed by a streamer you would like to play a clip from in chat. Clips will be queued, so you don't have to wait to add them."
+                      },
+                      {
+                        "id": "a5573480-e137-11ed-9b56-ddd81a7af71a",
+                        "type": "firebot:customvariable",
+                        "active": true,
+                        "ttl": 0,
+                        "name": "clipsStatus",
+                        "variableData": "true"
+                      }
+                    ],
+                    "id": "538f6230-e137-11ed-9b56-ddd81a7af71a"
+                  }
+                }
+              ],
+              "otherwiseEffectData": {
+                "list": [
+                  {
+                    "id": "6db25cd0-e137-11ed-9b56-ddd81a7af71a",
+                    "type": "firebot:announcement",
+                    "active": true,
+                    "color": "Green",
+                    "chatter": "Streamer",
+                    "message": "Clips have been disabled for chat."
+                  },
+                  {
+                    "id": "ad9bc070-e137-11ed-9b56-ddd81a7af71a",
+                    "type": "firebot:customvariable",
+                    "active": true,
+                    "ttl": 0,
+                    "name": "clipsStatus",
+                    "variableData": "false"
+                  }
+                ],
+                "id": "538db480-e137-11ed-9b56-ddd81a7af71a"
+              }
+            },
+            {
+              "id": "245f6780-e132-11ed-9b56-ddd81a7af71a",
+              "type": "firebot:toggle-command",
+              "active": true,
+              "toggleType": "toggle",
+              "commandType": "custom",
+              "commandId": "d09b9600-dbbe-11ed-99c3-c983bb9904e0"
+            }
+          ],
+          "id": "1da747f1-e132-11ed-9b56-ddd81a7af71a"
+        },
+        "args": [],
+        "sortTags": [
+          "794beaa2-5557-412e-b1dc-f7fb771edfbd",
+          "bddb2559-cc79-474c-bb91-d22f2165b7d2"
+        ],
+        "id": "1da747f0-e132-11ed-9b56-ddd81a7af71a"
+      },
       {
         "name": "RandomClip",
         "effects": {
@@ -187,7 +326,7 @@
               "active": true,
               "listType": "preset",
               "presetListArgs": {
-                "streamer": "$presetListArg[streamer]"
+                "streamer": "$#streamer"
               },
               "effectList": {
                 "list": [],
@@ -215,7 +354,7 @@
               "active": true,
               "listType": "preset",
               "presetListArgs": {
-                "ThisUser": "$presetListArg[streamer]"
+                "ThisUser": "$#streamer"
               },
               "effectList": {
                 "list": [],
@@ -288,7 +427,8 @@
         "args": [],
         "sortTags": [
           "794beaa2-5557-412e-b1dc-f7fb771edfbd",
-          "c7299530-6b33-4cfe-9571-984695db5292"
+          "c7299530-6b33-4cfe-9571-984695db5292",
+          "bddb2559-cc79-474c-bb91-d22f2165b7d2"
         ],
         "id": "c0efc640-1e8f-11ee-92eb-9f052aff649c"
       },
@@ -297,6 +437,15 @@
         "effects": {
           "list": [
             {
+              "id": "ca4cbe40-6ac6-11ee-a034-77f1f8367a32",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 30,
+              "variableData": "$replace[$lowercase[$#ThisUser], \"@\", \"\"]",
+              "name": "this_user",
+              "effectLabel": "this_user"
+            },
+            {
               "id": "043b10c0-266b-11ee-83e6-23362b1bd18f",
               "type": "firebot:http-request",
               "active": true,
@@ -304,7 +453,7 @@
               "options": {
                 "useTwitchAuth": true
               },
-              "url": "https://api.twitch.tv/helix/chat/color?user_id=$userId[$presetListArg[ThisUser]]",
+              "url": "https://api.twitch.tv/helix/chat/color?user_id=$userId[$$this_user]",
               "method": "GET",
               "effectLabel": "Get Users Color Info"
             },
@@ -314,7 +463,7 @@
               "active": true,
               "ttl": 30,
               "name": "userColorJson",
-              "variableData": "$effectOutput[httpResponse]",
+              "variableData": "$&httpResponse",
               "effectLabel": "userColorJson"
             },
             {
@@ -334,6 +483,17 @@
               "name": "userColor",
               "effectLabel": "userColor",
               "variableData": "$customVariable[userColorData,0.color]"
+            },
+            {
+              "id": "c3cecbb0-56f5-11ee-a5d5-2f1d6b6d5b1d",
+              "type": "firebot:filewriter",
+              "active": false,
+              "writeMode": "append",
+              "deleteLineMode": "lines",
+              "replaceLineMode": "lineNumbers",
+              "filepath": "E:\\Streaming\\data\\twitchClip.json",
+              "text": "Color - $customVariable[userColorData,0]",
+              "effectLabel": "debug value"
             }
           ],
           "id": "d4366eb0-266a-11ee-83e6-23362b1bd18f"
@@ -372,6 +532,15 @@
               "variableData": "$date[YYYY-MM-DD, -12, months]"
             },
             {
+              "id": "ff8f3bf0-6ac6-11ee-a034-77f1f8367a32",
+              "type": "firebot:customvariable",
+              "active": true,
+              "ttl": 30,
+              "variableData": "$replace[$lowercase[$presetListArg[streamer]], \"@\", \"\"]",
+              "name": "this_user",
+              "effectLabel": "this_user"
+            },
+            {
               "id": "d491f890-2bc2-11ee-95cd-a1b91b9c8cf9",
               "type": "firebot:http-request",
               "active": true,
@@ -379,7 +548,7 @@
               "options": {
                 "useTwitchAuth": true
               },
-              "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$presetListArg[streamer]]&first=100&started_at=$customVariable[PreviousYear]T00:00:00Z&ended_at=$customVariable[CurrentDate]T00:00:00Z",
+              "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$customVariable[this_user]]&first=100&started_at=$customVariable[PreviousYear]T00:00:00Z&ended_at=$customVariable[CurrentDate]T00:00:00Z",
               "method": "GET",
               "effectLabel": "Get List of Twitch Clips (Date Filter)"
             },
@@ -391,7 +560,7 @@
               "options": {
                 "useTwitchAuth": true
               },
-              "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$presetListArg[streamer]]&first=100",
+              "url": "https://api.twitch.tv/helix/clips?broadcaster_id=$userId[$customVariable[this_user]]&first=100",
               "method": "GET",
               "effectLabel": "Get List of Twitch Clips (No Date Filter)"
             },
@@ -470,7 +639,19 @@
                   }
                 ],
                 "id": "99b28a20-2bd4-11ee-95cd-a1b91b9c8cf9"
-              }
+              },
+              "effectLabel": "Format Title"
+            },
+            {
+              "id": "6cc685b0-56f5-11ee-a5d5-2f1d6b6d5b1d",
+              "type": "firebot:filewriter",
+              "active": true,
+              "writeMode": "append",
+              "deleteLineMode": "lines",
+              "replaceLineMode": "lineNumbers",
+              "filepath": "E:\\Streaming\\data\\twitchClip.json",
+              "text": "$customVariable[twitchClipsData]",
+              "effectLabel": "debug"
             }
           ],
           "id": "87fb57b0-2bc2-11ee-95cd-a1b91b9c8cf9"
@@ -571,6 +752,17 @@
               "variableData": "$replace[$customVariable[twitchGameData,0.box_art_url], \"{width}x{height}\", \"50x50\"]",
               "name": "boxArtUrl",
               "effectLabel": "boxArtUrl"
+            },
+            {
+              "id": "f57f7010-56f5-11ee-a5d5-2f1d6b6d5b1d",
+              "type": "firebot:filewriter",
+              "active": false,
+              "writeMode": "append",
+              "deleteLineMode": "lines",
+              "replaceLineMode": "lineNumbers",
+              "filepath": "E:\\Streaming\\data\\twitchClip.json",
+              "text": "GameInfo - $customVariable[twitchGameData,0]",
+              "effectLabel": "debug"
             }
           ],
           "id": "28e99d81-2bc3-11ee-95cd-a1b91b9c8cf9"
@@ -578,7 +770,8 @@
         "args": [],
         "sortTags": [
           "75e6a3bc-a3d9-47a9-9136-63a957f2b106",
-          "4ec259a1-f622-4d17-881c-b3031774dbc4"
+          "4ec259a1-f622-4d17-881c-b3031774dbc4",
+          "bddb2559-cc79-474c-bb91-d22f2165b7d2"
         ],
         "id": "28e99d80-2bc3-11ee-95cd-a1b91b9c8cf9"
       },
@@ -684,7 +877,7 @@
               "exitAnimation": "fadeOut",
               "inbetweenAnimation": "none",
               "html": "$evalVars[$readFile[E:\\Streaming\\Assets\\Overlays\\clip\\clips.html]]",
-              "length": "$customVariable[twitchClipsData,0.duration]",
+              "length": "$$twitchClipsData[0, duration]",
               "effectLabel": "show clips.html",
               "overlayInstance": "Clips"
             },
@@ -755,7 +948,7 @@
                     "type": "firebot:chat",
                     "active": true,
                     "chatter": "Bot",
-                    "message": "Sorry, $username, there were no clips of $presetListArg[name] available to play",
+                    "message": "Sorry, $user, there were no clips of $#name available to play",
                     "sendAsReply": true
                   }
                 ],
