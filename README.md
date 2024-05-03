@@ -4,14 +4,14 @@
 Firebot setup for playing Twitch clips on stream from user input.
 
 # Compatibility
-- Firebot 5.58.0+
+- Firebot 5.62.1+
 
 # Install
 + Download
   + Clip.firebotsetup
   + clips.html
 + Import the downloaded firebotsetup file
-  + You will need to edit the preset effect to change the location of the html file.
+  + You will be prompted to change the location of the html file during import.
 
 # Usage
 
@@ -42,7 +42,6 @@ Firebot setup for playing Twitch clips on stream from user input.
 # Additional
 + This is a complete setup, if you want to put your own version together, check out the following repo's for modular pieces used by this setup
   + [API-Random-Twitch-Clip](https://github.com/arblane/API-Random-Twitch-Clip)
-  + [API-Get-Twitch-Users-Color](https://github.com/arblane/API-Get-Twitch-Users-Color)
   + [API-Twitch-Game-Info](https://github.com/arblane/API-Twitch-Game-Info)
 
 # Credits
