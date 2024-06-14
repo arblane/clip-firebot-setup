@@ -25,16 +25,16 @@ Firebot setup for playing Twitch clips on stream from user input.
 ## Commands for Chat
 + !clip 
   + streamer name with or without the leading @ symbol
-  + url either:
-    + https://www.twitch.tv/
-    + https://clips.twitch.tv/
+  + url either type:
+    + https://www.twitch.tv/ or https://clips.twitch.tv/
+    + url will be sanitized by the utility to remove extraneous information
 
 ## Streamer Info
 + Toggle enabled/disabled is controlled by an effect list
   + Add it to a startup event to disable on launch of Firebot (not included in the setup)
   + Add it to an event on startup of OBS to reset the clips played this stream session
 + An overlay instance is provided to keep the effect separate from any other effect overlays, useful when you want to stop playing clips early.
-+ Effect has a date range filter of the past 12 months
++ Effect has a date range filter of the past 12 months (see Customize below)
   + You can toggle this on/off in '[API] Get User Clips' preset effect
 + The html/css file will make use of the targeted streamer's color to generate a gradient background
 + Utilities included
