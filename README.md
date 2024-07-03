@@ -28,6 +28,7 @@ Firebot setup for playing Twitch clips on stream from user input.
   + url either type:
     + https://www.twitch.tv/ or https://clips.twitch.tv/
     + url will be sanitized by the utility to remove extraneous information
+    + urls will need to be whitelisted in your moderation settings
 
 ## Streamer Info
 + An overlay instance is provided to keep the effect separate from any other effect overlays, useful when you want to stop playing clips early.
