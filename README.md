@@ -30,30 +30,44 @@ Firebot setup for playing Twitch clips on stream from user input.
     + url will be sanitized by the utility to remove extraneous information
 
 ## Streamer Info
-+ Toggle enabled/disabled is controlled by an effect list
-  + Add it to a startup event to disable on launch of Firebot (not included in the setup)
-  + Add it to an event on startup of OBS to reset the clips played this stream session
 + An overlay instance is provided to keep the effect separate from any other effect overlays, useful when you want to stop playing clips early.
-+ Effect has a date range filter of the past 12 months (see Customize below)
-  + You can toggle this on/off in '[API] Get User Clips' preset effect
 + The html/css file will make use of the targeted streamer's color to generate a gradient background
-+ Utilities included
-  + [Utility] Clip Uri Details
-    + Gets the clip ID to add to the tracking list of clips
+
++ Utilities included:
+  + [Utility] Randomize Clips
+    + Randomizes the clips
   + [Utility] Clip Duration Filter
     + Customizable filter to limit the duration of the clips chosen
+    + Can be enabled/disabled
+    + Default is 30 seconds
   + [Utility] Reset Clips Played this Stream
     + Resets the tracking list of clips played this stream to prevent duplicates
-  + [TP] ToggleClip
+    + Info: You can add to an event on startup of OBS to reset the clips played this stream session.
+  + [Utility] Clip Uri Details
+    + Gets the clip ID to add to the tracking list of clips
+  + [Utility] Clip Player
+    + Uses the elements from the other utilities and the html to play the clip
+  + [Variable] Clips Date filter
+    + The date filter: shorter, longer, or disable (in [API] Get User Clips)
+    + Can be enabled/disabled
+    + Default is 
+      + Enabled
+      + Previous 12 months
+  + [Variable] Clips No Date filter
+    + Hets clips without date filter
+    + Default is
+      + Disabled
+  + [TP] Toggle Clip
     + Sets a toggle to enable/disable clips
+    + Info: You can add it to a startup event to disable on launch of Firebot.
   + [TP] Stop Current Clips
     + Clears any clips playing from the queue
+
 + Customize:
-  + the size and position to your liking
-  + the date filter: shorter, longer, or disable (in [API] Get User Clips)
-  + the number of clips to pull, default 100 (in [API] Get User Clips)
-  + the max duration of clips to pull, or disable (in [API] Clip Duration Filter)
-  + there is a 'broken image' image in the game box art img tag that needs to be customized
+  + html
+    + the size and position to your liking
+    + the details you would like to include
+    + there is a 'broken image' image in the game box art img tag that needs to be customized
 
 # Additional
 + This is a complete setup, if you want to put your own version together, check out the following repo's for modular pieces used by this setup
